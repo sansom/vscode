@@ -1,0 +1,27 @@
+@startuml
+
+(*) -->[激活优先级高的rule] "rule：We have an honest Politician"
+if "exists(Politician(honest == true))" then
+    -->[true] "LHS触发，insertLogical(new Hope())" 
+    note top: exists关键字，触发一次就结束
+    note right: 当前workingMemory中插入一个新的Hope对象
+    if"exists(Hope())" then
+    -->[true] "LHS触发，输出：Hurrah!!! Democracy Lives"
+    note left: salience都是10，直达hope()存在才触发
+        if "激活优先级低的rule" 
+            -->[Hope is Dead] "rule：Hope is Dead"
+            -->[所有rule执行完毕](*)
+        else 
+            -->[Corrupt the Honest] "rule：Corrupt the Honest"
+            -->[LHS触发，4个politician的honest改为false] "modify，存储"
+            -->[不存在Politician( honest == true )] "rule:We have an honest Politician不满足"
+            -->[LHS触发,not(Hope())  ] "rule：Hope is Dead"
+        endif       
+    else
+
+    -->[false] "LHS未触发"
+    endif
+else
+    -->[false] "LHS未触发，Do nothing"
+
+@enduml
