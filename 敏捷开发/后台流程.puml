@@ -1,0 +1,17 @@
+@startuml
+start
+-> 需求明确;
+:数据库表设计;
+-> 设计确定;
+:画E-R图，建表;
+-> 快速生成实体类;
+fork
+    :前后端沟通+swagger;
+  fork again
+    :画uml类图;
+  fork again
+    :确定ut范围;
+  end fork
+-> 明确设计，编码;
+:前后端分离;
+@enduml 
