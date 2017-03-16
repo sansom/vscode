@@ -68,9 +68,11 @@ ENV <key>=<value>... --- 可以一次指定多个变量
 - ONBUILD — 添加触发器
 ```
 ONBUILD [instruction]
-```   
+``` 
+
 ## SpringBoot的Dockerfile
 - Dockerfile
+
 ```
   #指定springboot需要的基础镜像
   FROM maven:3.3.3
@@ -91,14 +93,23 @@ ONBUILD [instruction]
   EXPOSE 8080
   ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 ```
+
+```
+FROM java:8
+VOLUME /tmp
+ADD portal-0.0.1-SNAPSHOT.jar app.jar
+RUN bash -c 'touch /app.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+```
+
 ## 构建Docker镜像
 - 进入应用根目录，构建Docker镜像
 ```
-docker build -t [项目名]
+docker build -t [项目名] .
 ```
 - 从镜像启动容器
 ```
-docker run -d -p 8080:8080
+docker run -d -p 8080:8080 --name=[命名] [项目名] 
 ```
 - 访问
 ```
